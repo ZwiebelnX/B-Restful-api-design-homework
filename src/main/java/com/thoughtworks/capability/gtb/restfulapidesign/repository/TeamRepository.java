@@ -6,6 +6,7 @@ import com.thoughtworks.capability.gtb.restfulapidesign.model.exception.TeamNotF
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,5 +35,9 @@ public class TeamRepository {
             throw new TeamNotFoundException(id);
         }
         return teamMap.get(id);
+    }
+
+    public List<Team> findAll() {
+        return new ArrayList<>(teamMap.values());
     }
 }

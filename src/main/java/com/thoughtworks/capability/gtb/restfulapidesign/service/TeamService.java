@@ -47,4 +47,8 @@ public class TeamService {
         teamInRepo.setName(team.getName());
         return teamRepository.save(teamInRepo);
     }
+
+    public List<Team> getTeams() {
+        return teamRepository.findAll();
+    }
 }
