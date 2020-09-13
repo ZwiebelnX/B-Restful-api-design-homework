@@ -27,12 +27,9 @@ public class TraineeRepository {
 
     public Trainee save(Trainee trainee) {
         if (trainee.getId() == 0 || !traineeMap.containsKey(trainee.getId())) {
-            trainee.setId(atomicInteger.get());
-            traineeMap.put(atomicInteger.get(), trainee);
-            atomicInteger.set(atomicInteger.get() + 1);
-        } else {
-            traineeMap.put(trainee.getId(), trainee);
+            trainee.setId(getNextId());
         }
+        traineeMap.put(trainee.getId(), trainee);
         return trainee;
     }
 
