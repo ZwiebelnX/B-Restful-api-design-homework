@@ -2,15 +2,21 @@ package com.thoughtworks.capability.gtb.restfulapidesign.repository;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.model.GenderType;
 import com.thoughtworks.capability.gtb.restfulapidesign.model.Trainee;
+import com.thoughtworks.capability.gtb.restfulapidesign.model.exception.InitTraineeException;
 import com.thoughtworks.capability.gtb.restfulapidesign.model.exception.TraineeNotFoundException;
 
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.annotation.PostConstruct;
 
 @Component
 public class TraineeRepository {
@@ -58,5 +64,31 @@ public class TraineeRepository {
             }
         }));
         return traineeList;
+    }
+
+    private int getNextId() {
+        return atomicInteger.getAndIncrement();
+    }
+
+    @PostConstruct
+    public void initDefaultTrainees() {
+        try {
+            File file = new File("defaultList.txt");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String lineString;
+            while ((lineString = bufferedReader.readLine()) != null) {
+                String[] traineeInfoStrings = lineString.split(",");
+                int id = getNextId();
+                Trainee trainee = Trainee.builder()
+                    .id(id)
+                    .name(traineeInfoStrings[0])
+                    .gender(GenderType.valueOf(traineeInfoStrings[1]))
+                    .build();
+                traineeMap.put(id, trainee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new InitTraineeException();
+        }
     }
 }
