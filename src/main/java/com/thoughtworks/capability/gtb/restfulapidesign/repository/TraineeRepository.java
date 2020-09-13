@@ -41,9 +41,7 @@ public class TraineeRepository {
     }
 
     public List<Trainee> findAll() {
-        List<Trainee> traineeList = new ArrayList<>();
-        traineeMap.forEach((integer, trainee) -> traineeList.add(trainee));
-        return traineeList;
+        return new ArrayList<>(traineeMap.values());
     }
 
     public Trainee findById(int traineeId) {
