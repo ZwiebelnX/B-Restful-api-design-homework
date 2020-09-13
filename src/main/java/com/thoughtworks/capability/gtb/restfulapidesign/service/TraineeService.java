@@ -18,4 +18,8 @@ public class TraineeService {
         traineeRepository.save(trainee);
         return trainee;
     }
+
+    public void deleteTrainee(int traineeId) {
+        traineeRepository.deleteById(traineeId);
+    }
 }

@@ -5,6 +5,8 @@ import com.thoughtworks.capability.gtb.restfulapidesign.service.TraineeService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,4 +30,9 @@ public class TraineeController {
         return ResponseEntity.created(URI.create("")).body(traineeService.addTrainee(trainee));
     }
 
+    @DeleteMapping("/{traineeId}")
+    public ResponseEntity<Void> deleteTrainee(@PathVariable int traineeId) {
+        traineeService.deleteTrainee(traineeId);
+        return ResponseEntity.ok().build();
+    }
 }
