@@ -20,9 +20,13 @@ public class TraineeRepository {
     private static final AtomicInteger atomicInteger = new AtomicInteger(1);
 
     public Trainee save(Trainee trainee) {
-        trainee.setId(atomicInteger.get());
-        traineeMap.put(atomicInteger.get(), trainee);
-        atomicInteger.set(atomicInteger.get() + 1);
+        if (trainee.getId() == 0 || !traineeMap.containsKey(trainee.getId())) {
+            trainee.setId(atomicInteger.get());
+            traineeMap.put(atomicInteger.get(), trainee);
+            atomicInteger.set(atomicInteger.get() + 1);
+        } else {
+            traineeMap.put(trainee.getId(), trainee);
+        }
         return trainee;
     }
 

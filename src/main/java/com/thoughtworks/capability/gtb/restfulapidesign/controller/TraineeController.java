@@ -54,4 +54,9 @@ public class TraineeController {
     public ResponseEntity<Trainee> getTrainee(@PathVariable int traineeId) {
         return ResponseEntity.ok(traineeService.getTrainee(traineeId));
     }
+
+    @PostMapping("/{traineeId}")
+    public ResponseEntity<Trainee> updateTraineeInfo(@PathVariable int traineeId, @RequestBody Trainee trainee) {
+        return ResponseEntity.ok(traineeService.updateTraineeInfo(traineeId, trainee));
+    }
 }

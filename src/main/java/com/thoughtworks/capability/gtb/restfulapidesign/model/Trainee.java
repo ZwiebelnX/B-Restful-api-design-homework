@@ -25,4 +25,5 @@ public class Trainee {
     private GenderType gender;
 
     private String note;
+
 }

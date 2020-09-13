@@ -33,4 +33,12 @@ public class TraineeService {
     public Trainee getTrainee(int traineeId) {
         return traineeRepository.findById(traineeId);
     }
+
+    public Trainee updateTraineeInfo(int traineeId, Trainee trainee) {
+        Trainee oldTrainee = traineeRepository.findById(traineeId);
+        oldTrainee.setGender(trainee.getGender());
+        oldTrainee.setName(trainee.getName());
+        oldTrainee.setNote(trainee.getNote());
+        return traineeRepository.save(oldTrainee);
+    }
 }
