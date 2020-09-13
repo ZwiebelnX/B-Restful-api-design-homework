@@ -41,4 +41,10 @@ public class TeamService {
         teamRepository.save(teamList);
         return teamList;
     }
+
+    public Team changeTeamName(int teamId, Team team) {
+        Team teamInRepo = teamRepository.findById(teamId);
+        teamInRepo.setName(team.getName());
+        return teamRepository.save(teamInRepo);
+    }
 }

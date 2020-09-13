@@ -4,10 +4,14 @@ import com.thoughtworks.capability.gtb.restfulapidesign.model.Team;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.TeamService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,6 +26,11 @@ public class TeamController {
 
     @PostMapping("/separation")
     public ResponseEntity<List<Team>> splitIntoTeam() {
-        return ResponseEntity.ok(teamService.splitIntoTeam());
+        return ResponseEntity.created(URI.create("")).body(teamService.splitIntoTeam());
+    }
+
+    @PatchMapping("{teamId}")
+    public ResponseEntity<Team> changeTeamName(@PathVariable int teamId, @RequestBody Team team) {
+        return ResponseEntity.ok(teamService.changeTeamName(teamId, team));
     }
 }

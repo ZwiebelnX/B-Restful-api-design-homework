@@ -1,6 +1,7 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.repository;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.model.Team;
+import com.thoughtworks.capability.gtb.restfulapidesign.model.exception.TeamNameConflictException;
 import com.thoughtworks.capability.gtb.restfulapidesign.model.exception.TeamNotFoundException;
 
 import org.springframework.stereotype.Component;
@@ -15,6 +16,11 @@ public class TeamRepository {
     private static final Map<Integer, Team> teamMap = new ConcurrentHashMap<>();
 
     public Team save(Team team) {
+        if (teamMap.values()
+            .stream()
+            .anyMatch(currentTeam -> currentTeam != team && currentTeam.getName().equals(team.getName()))) {
+            throw new TeamNameConflictException(team.getName());
+        }
         teamMap.put(team.getId(), team);
         return team;
     }
