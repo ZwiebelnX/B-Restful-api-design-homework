@@ -49,4 +49,9 @@ public class TraineeController {
     public ResponseEntity<List<Trainee>> getTrainees(@RequestParam(required = false) GenderType gender) {
         return ResponseEntity.ok(traineeService.getTrainees(gender));
     }
+
+    @GetMapping("/{traineeId}")
+    public ResponseEntity<Trainee> getTrainee(@PathVariable int traineeId) {
+        return ResponseEntity.ok(traineeService.getTrainee(traineeId));
+    }
 }

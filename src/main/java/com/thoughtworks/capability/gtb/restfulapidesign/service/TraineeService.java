@@ -29,4 +29,8 @@ public class TraineeService {
     public List<Trainee> getTrainees(GenderType genderType) {
         return genderType == null ? traineeRepository.findAll() : traineeRepository.findAllTraineeByGender(genderType);
     }
+
+    public Trainee getTrainee(int traineeId) {
+        return traineeRepository.findById(traineeId);
+    }
 }

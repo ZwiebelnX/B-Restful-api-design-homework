@@ -39,6 +39,13 @@ public class TraineeRepository {
         return traineeList;
     }
 
+    public Trainee findById(int traineeId) {
+        if (!traineeMap.containsKey(traineeId)) {
+            throw new TraineeNotFoundException(traineeId);
+        }
+        return traineeMap.get(traineeId);
+    }
+
     public List<Trainee> findAllTraineeByGender(GenderType genderType) {
         List<Trainee> traineeList = new ArrayList<>();
         traineeMap.forEach(((integer, trainee) -> {
