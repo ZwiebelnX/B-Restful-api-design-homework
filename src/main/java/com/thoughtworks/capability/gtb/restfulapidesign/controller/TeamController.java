@@ -35,7 +35,7 @@ public class TeamController {
         return ResponseEntity.ok(teamService.changeTeamName(teamId, team));
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<Team>> getTeams() {
         return ResponseEntity.ok(teamService.getTeams());
     }

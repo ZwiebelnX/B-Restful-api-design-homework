@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,6 @@ import java.net.URI;
 import java.util.List;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/trainees")
@@ -33,8 +33,7 @@ public class TraineeController {
         this.traineeService = traineeService;
     }
 
-    @PostMapping("")
-    @ApiOperation(value = "test")
+    @PostMapping
     public ResponseEntity<Trainee> addTrainee(@RequestBody Trainee trainee) {
         return ResponseEntity.created(URI.create("")).body(traineeService.addTrainee(trainee));
     }
@@ -45,7 +44,7 @@ public class TraineeController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<Trainee>> getTrainees(@RequestParam(required = false) GenderType gender) {
         return ResponseEntity.ok(traineeService.getTrainees(gender));
     }
@@ -55,7 +54,7 @@ public class TraineeController {
         return ResponseEntity.ok(traineeService.getTrainee(traineeId));
     }
 
-    @PostMapping("/{traineeId}")
+    @PutMapping("/{traineeId}")
     public ResponseEntity<Trainee> updateTraineeInfo(@PathVariable int traineeId, @RequestBody Trainee trainee) {
         return ResponseEntity.ok(traineeService.updateTraineeInfo(traineeId, trainee));
     }
